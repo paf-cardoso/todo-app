@@ -1,238 +1,176 @@
-# 📝 To-Do List - Full Stack Application
+# Task Manager
 
-Uma aplicação completa de lista de tarefas desenvolvida com **Node.js**, **Express**, **MongoDB**, e **React**.
+A full-stack task management application built with Node.js, Express, MongoDB, and React.
 
-## 🚀 Funcionalidades
+## Features
 
-- ✅ Adicionar novas tarefas
-- 📋 Listar todas as tarefas
-- ✔️ Marcar tarefas como concluídas/não concluídas
-- 🗑️ Remover tarefas
-- 📊 Estatísticas (total, concluídas, pendentes)
-- 🎨 Interface moderna e responsiva
-- ⚡ Feedback visual em tempo real
+- Create, read, update, and delete tasks
+- Mark tasks as completed
+- Real-time task statistics
+- Responsive design
+- RESTful API
 
-## 🛠️ Tecnologias Utilizadas
+## Tech Stack
 
 ### Backend
-- **Node.js** - Runtime JavaScript
-- **Express** - Framework web
-- **MongoDB** - Base de dados NoSQL
-- **Mongoose** - ODM para MongoDB
-- **CORS** - Middleware para habilitar CORS
+- Node.js
+- Express
+- MongoDB with Mongoose
+- CORS
 
 ### Frontend
-- **React 18** - Biblioteca JavaScript para UI
-- **Vite** - Build tool rápido
-- **Axios** - Cliente HTTP
-- **CSS3** - Estilização
+- React 18
+- Vite
+- Axios
+- CSS3
 
-## 📦 Pré-requisitos
+## Prerequisites
 
-Antes de começar, certifica-te de que tens instalado:
+- Node.js (v18 or higher)
+- MongoDB (local installation or MongoDB Atlas account)
+- Git
 
-- [Node.js](https://nodejs.org/) (v18 ou superior)
-- [MongoDB](https://www.mongodb.com/try/download/community) (instalado localmente) ou uma conta no [MongoDB Atlas](https://www.mongodb.com/cloud/atlas)
-- [Git](https://git-scm.com/)
+## Installation
 
-## 🔧 Instalação e Configuração
-
-### 1. Clonar o Repositório
+### 1. Clone the repository
 
 ```bash
-git clone https://github.com/teu-usuario/todo-app.git
+git clone https://github.com/your-username/todo-app.git
 cd todo-app
 ```
 
-### 2. Configurar o Backend
+### 2. Backend Setup
 
 ```bash
 cd backend
-
-# Instalar dependências
-npm install
-
-# Criar arquivo .env (copiar do .env.example)
-cp .env.example .env
-
-# Editar o arquivo .env e configurar a string de conexão do MongoDB
-# PORT=5000
-# MONGODB_URI=mongodb://localhost:27017/todo-app
-# Ou para MongoDB Atlas:
-# MONGODB_URI=mongodb+srv://<user>:<password>@cluster.mongodb.net/todo-app
-```
-
-### 3. Configurar o Frontend
-
-```bash
-cd ../frontend
-
-# Instalar dependências
 npm install
 ```
 
-## 🚀 Como Executar
+Create a `.env` file in the backend directory:
 
-### Opção 1: Executar Separadamente
+```env
+PORT=5000
+MONGODB_URI=your_mongodb_connection_string
+```
 
-**Terminal 1 - Backend:**
+For MongoDB Atlas, your connection string should look like:
+```
+mongodb+srv://username:password@cluster.mongodb.net/todo-app
+```
+
+Start the backend server:
+
 ```bash
-cd backend
 npm run dev
 ```
-O servidor estará disponível em `http://localhost:5000`
 
-**Terminal 2 - Frontend:**
+The server will run on `http://localhost:5000`
+
+### 3. Frontend Setup
+
+Open a new terminal window:
+
 ```bash
 cd frontend
+npm install
 npm run dev
 ```
-A aplicação estará disponível em `http://localhost:3000`
 
-### Opção 2: Executar com Script (opcional)
+The application will run on `http://localhost:3000`
 
-Podes criar um script `start.sh` na raiz do projeto:
+## API Endpoints
 
-```bash
-#!/bin/bash
+| Method | Endpoint | Description |
+|--------|----------|-------------|
+| GET | `/tasks` | Get all tasks |
+| POST | `/tasks` | Create a new task |
+| PATCH | `/tasks/:id` | Update task status |
+| DELETE | `/tasks/:id` | Delete a task |
 
-# Iniciar backend em background
-cd backend && npm run dev &
+### Example Requests
 
-# Aguardar 3 segundos
-sleep 3
-
-# Iniciar frontend
-cd ../frontend && npm run dev
-```
-
-Tornar o script executável e rodar:
-```bash
-chmod +x start.sh
-./start.sh
-```
-
-## 📡 API Endpoints
-
-### Base URL: `http://localhost:5000`
-
-| Método | Endpoint | Descrição |
-|--------|----------|-----------|
-| GET | `/tasks` | Listar todas as tarefas |
-| POST | `/tasks` | Criar nova tarefa |
-| PATCH | `/tasks/:id` | Atualizar status da tarefa |
-| DELETE | `/tasks/:id` | Remover tarefa |
-
-### Exemplos de Requisições
-
-**Criar Tarefa:**
+**Create a task:**
 ```bash
 curl -X POST http://localhost:5000/tasks \
   -H "Content-Type: application/json" \
-  -d '{"title": "Comprar leite"}'
+  -d '{"title": "Complete project documentation"}'
 ```
 
-**Listar Tarefas:**
+**Get all tasks:**
 ```bash
 curl http://localhost:5000/tasks
 ```
 
-**Marcar como Concluída:**
+**Update task:**
 ```bash
 curl -X PATCH http://localhost:5000/tasks/<task_id> \
   -H "Content-Type: application/json" \
   -d '{"completed": true}'
 ```
 
-**Remover Tarefa:**
+**Delete task:**
 ```bash
 curl -X DELETE http://localhost:5000/tasks/<task_id>
 ```
 
-## 📁 Estrutura do Projeto
+## Project Structure
 
 ```
 todo-app/
 ├── backend/
 │   ├── models/
-│   │   └── Task.js          # Modelo do MongoDB
-│   ├── .env.example         # Exemplo de configuração
-│   ├── package.json         # Dependências do backend
-│   └── server.js            # Servidor Express
-│
+│   │   └── Task.js
+│   ├── .env.example
+│   ├── package.json
+│   └── server.js
 ├── frontend/
 │   ├── src/
-│   │   ├── App.jsx          # Componente principal
-│   │   ├── App.css          # Estilos do App
-│   │   ├── index.css        # Estilos globais
-│   │   └── main.jsx         # Ponto de entrada
-│   ├── index.html           # HTML principal
-│   ├── package.json         # Dependências do frontend
-│   └── vite.config.js       # Configuração do Vite
-│
+│   │   ├── App.jsx
+│   │   ├── App.css
+│   │   ├── index.css
+│   │   └── main.jsx
+│   ├── index.html
+│   ├── package.json
+│   └── vite.config.js
 ├── .gitignore
 └── README.md
 ```
 
-## 🎨 Screenshots
+## Environment Variables
 
-A aplicação possui:
-- Design moderno com gradiente roxo
-- Cards de tarefas com hover effects
-- Checkbox personalizado
-- Estatísticas em tempo real
-- Animações suaves
-- Design responsivo
+### Backend
 
-## 🐛 Resolução de Problemas
+- `PORT` - Server port (default: 5000)
+- `MONGODB_URI` - MongoDB connection string
 
-### MongoDB não conecta
+## Troubleshooting
 
-**Problema:** Erro ao conectar ao MongoDB
-**Solução:**
-1. Verifica se o MongoDB está a correr: `mongod` ou `brew services list` (Mac)
-2. Confirma a string de conexão no `.env`
-3. Para MongoDB Atlas, certifica-te que o IP está na whitelist
+### MongoDB Connection Issues
 
-### Porta já está em uso
+If you encounter connection errors:
+1. Verify your MongoDB connection string in `.env`
+2. Check that MongoDB is running (if using local installation)
+3. For MongoDB Atlas, ensure your IP address is whitelisted
 
-**Problema:** `Error: listen EADDRINUSE: address already in use :::5000`
-**Solução:**
+### Port Already in Use
+
+If port 5000 or 3000 is already in use:
+
+**Windows:**
 ```bash
-# Linux/Mac
-lsof -ti:5000 | xargs kill -9
-
-# Windows
 netstat -ano | findstr :5000
 taskkill /PID <PID> /F
 ```
 
-### CORS Error
+**Mac/Linux:**
+```bash
+lsof -ti:5000 | xargs kill -9
+```
 
-**Problema:** Erro de CORS no browser
-**Solução:** Verifica se o backend está configurado com `cors()` e se o frontend está a fazer requisições para o URL correto
+## License
 
-## 🚀 Melhorias Futuras (Extras)
+MIT
 
-- [ ] Implementar **React Query** para cache e gestão de estado
-- [ ] Adicionar **Zustand** para estado global
-- [ ] Implementar **autenticação JWT**
-- [ ] Adicionar filtros (todas, concluídas, pendentes)
-- [ ] Implementar pesquisa de tarefas
-- [ ] Adicionar datas de vencimento
-- [ ] Categorias/tags para tarefas
-- [ ] Drag and drop para reordenar
-- [ ] Dark mode
-- [ ] Testes unitários e de integração
+## Author
 
-## 📝 Licença
-
-Este projeto está sob a licença MIT.
-
-## 👤 Autor
-
-Desenvolvido como desafio Full-Stack.
-
----
-
-⭐ Se gostaste deste projeto, dá uma estrela no GitHub!
+Developed as a full-stack development project.
